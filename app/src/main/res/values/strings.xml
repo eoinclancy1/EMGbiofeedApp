@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">BluetoothRxTx</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_device_list">DeviceListActivity</string>
+    <string name="title_activity_login_main">login_main</string>
+    <string name="emptyString" />
+
+    <!-- Added for the listView -->
+    <string-array name="exercise_names">
+        <item>Y Balance Functional Test</item>
+        <item>OptoJump Exercise</item>
+    </string-array>
+
+    <array name="exercise_images">
+        <item>@drawable/optojump</item>
+        <item>@drawable/ybalance</item>
+    </array>
+
+    <string-array name="status">
+        <item>Available</item>
+        <item>Coming Soon</item>
+    </string-array>
+
+    <!-- End of added for listView -->
+</resources>
