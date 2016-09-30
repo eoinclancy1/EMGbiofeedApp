@@ -38,9 +38,10 @@ public class LoginMain extends ActionBarActivity {
 
             String password =  helper.searchPass(str);
             if (pass.equals(password)){
-                //Intent i = new Intent(LoginMain.this, Display.class);     //Can uncomment to use this screen again
-                Intent i = new Intent(LoginMain.this, DeviceListActivity.class);
-                i.putExtra("Username", str);    //Putting the username
+                //Intent i = new Intent(LoginMain.this, Display.class);     //Can uncomment to use this simple text-display screen again
+                //Intent i = new Intent(LoginMain.this, DeviceListActivity.class);       //Can uncomment this to get from login to sensor data reading screen
+                Intent i = new Intent(LoginMain.this, ExerciseList.class);
+                i.putExtra("Username", str);    //Putting the username, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
                 startActivity(i);
             }
             else{

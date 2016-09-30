@@ -21,6 +21,7 @@
         <item>Available</item>
         <item>Coming Soon</item>
     </string-array>
+    <string name="title_activity_excercise_list">Please Select an Exercise</string>
 
     <!-- End of added for listView -->
 </resources>

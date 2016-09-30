@@ -14,7 +14,7 @@
         android:text="Log In"
         android:id="@+id/Blogin"
         android:onClick="onButtonClick"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/TFpassword"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -62,8 +62,7 @@
         android:id="@+id/Bsignup"
         android:onClick="onButtonClick"
         android:layout_below="@+id/Blogin"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
