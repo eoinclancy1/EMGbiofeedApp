@@ -22,6 +22,7 @@
         <item>Coming Soon</item>
     </string-array>
     <string name="title_activity_excercise_list">Please Select an Exercise</string>
+    <string name="title_activity_opto_jump_visual">OptoJumpVisual</string>
 
     <!-- End of added for listView -->
 </resources>

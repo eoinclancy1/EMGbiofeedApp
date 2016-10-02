@@ -17,4 +17,5 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/emptyString"
         android:id="@+id/TVusername" />
+
 </LinearLayout>

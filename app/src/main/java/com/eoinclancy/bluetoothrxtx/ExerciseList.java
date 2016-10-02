@@ -105,16 +105,24 @@ public class ExerciseList extends ActionBarActivity {
                 Exercise clickedExercise = myExcercises.get(position);                  //position gives the position within the list, top item is 0 etc
                 String message = "Selected:" + clickedExercise.getExcercise();
 
-                if (clickedExercise.getstatus().equals("Available")){
-                    String exerciseDetails = clickedExercise.getExcercise();
-                    Intent i = new Intent(ExerciseList.this, DeviceListActivity.class);
-                    i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
-                    startActivity(i);
+                if (clickedExercise.getstatus().equals("Available")){                   //If user selects an exercise that is currently available - load it up for them
+                    String exerciseDetails = clickedExercise.getExcercise();            //Get exercise name
+
+                    if (exerciseDetails.equals("OptoJump")){                            //For optopJump, send it to the verticalSlider classs to test
+                        Intent i = new Intent(ExerciseList.this, VerticalSliderActivity.class);
+                        i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
+                        startActivity(i);
+                    }
+                    else{                                                               //All other available selections go to the bluetooth setup class
+                        Intent i = new Intent(ExerciseList.this, DeviceListActivity.class);
+                        i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
+                        startActivity(i);
+                    }
                 }
                 else{
                     message = clickedExercise.getExcercise() + " is not availble yet. Sorry!";
                 }
-                Toast.makeText(ExerciseList.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(ExerciseList.this, message, Toast.LENGTH_LONG).show();   //Display the selection on screen
             }
         });
     }

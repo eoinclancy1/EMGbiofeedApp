@@ -16,6 +16,9 @@ public class Display extends Activity {
         String username = getIntent().getStringExtra("Username");  //Fetching the username
         TextView tv = (TextView)findViewById(R.id.TVusername);      //for TextView use TextView
         tv.setText(username);                                           //displaying the text in the text view
+        // Get the Drawable custom_progressbar
+
+
     }
 
 }
