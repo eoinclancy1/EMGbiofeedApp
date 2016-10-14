@@ -58,36 +58,45 @@
         android:id="@+id/sensorView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sensorView0"
-        android:layout_centerHorizontal="true"
         android:text="Sensor 1 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/JointAngleProgress"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/sensorView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sensorView1"
-        android:layout_centerHorizontal="true"
         android:text="Sensor 2 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/sensorView1"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/sensorView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sensorView2"
-        android:layout_centerHorizontal="true"
         android:text="Sensor 3 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/sensorView2"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/sensorView0"
+        android:id="@+id/JointAngleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="196dp"
-        android:text="Sensor 0 Voltage = ????"
+        android:text=" Joint Angle =  ????"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/JointAngleProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Squat Progress =  ????"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/JointAngleText"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
