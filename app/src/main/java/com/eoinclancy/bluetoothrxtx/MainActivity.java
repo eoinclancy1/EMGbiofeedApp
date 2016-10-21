@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
         bluetoothIn =  new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {                                     //if message is what we want
-                    String readMessage = (String) msg.obj;                                                                // msg.arg1 = bytes from connect thread
+                    String readMessage = (String) msg.obj;                                  // msg.arg1 = bytes from connect thread
                     recDataString.append(readMessage);                                      //keep appending to string until ~
                     int endOfLineIndex = recDataString.indexOf("~");                    // determine the end-of-line
                     if (endOfLineIndex > 0) {                                           // make sure there data before ~
@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
                             String sensor2 = recDataString.substring(11, 15);
                             String sensor3 = recDataString.substring(16, 20);*/
                             String sensor0 = recDataArray[0].replace("#","");
+                            sensor0 = sensor0.substring(0,sensor0.length()-1);          //scaling the angle value to 1 decimal place
                             String sensor1 = recDataArray[1];
                             String sensor2 = recDataArray[2];
                             String sensor3 = recDataArray[3];
@@ -84,7 +85,8 @@ public class MainActivity extends Activity {
                             sensorView2.setText(" Sensor 2 Voltage = " + sensor2 + "V");
                             sensorView3.setText(" Sensor 3 Voltage = " + sensor3 + "V");
 
-                            int jointAngleValue = Integer.parseInt(sensor0);
+                            float jointAngleValue = Float.parseFloat(sensor0);
+                            String.format("%.1f", jointAngleValue);
                             if (jointAngleValue < 40){
                                 jointAngleProgress.setText("Standing");
                             }
