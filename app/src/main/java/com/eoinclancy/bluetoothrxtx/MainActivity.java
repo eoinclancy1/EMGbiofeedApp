@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private StringBuilder recDataString = new StringBuilder();
-
+    private String displayDataRec;
     private ConnectedThread mConnectedThread;
 
     // SPP UUID service - this should work for most devices
@@ -55,20 +55,29 @@ public class MainActivity extends Activity {
         sensorView2 = (TextView) findViewById(R.id.sensorView2);
         sensorView3 = (TextView) findViewById(R.id.sensorView3);
 
+
         bluetoothIn =  new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {                                     //if message is what we want
                     String readMessage = (String) msg.obj;                                  // msg.arg1 = bytes from connect thread
                     recDataString.append(readMessage);                                      //keep appending to string until ~
                     int endOfLineIndex = recDataString.indexOf("~");                    // determine the end-of-line
-                    if (endOfLineIndex > 0) {                                           // make sure there data before ~
+
+                    System.out.println(readMessage);
+                    System.out.println(recDataString);
+                    System.out.println("\t\t\t\t &&&&&&&&& " + endOfLineIndex);
+
+                    //if (endOfLineIndex > 0) {                                           // make sure there data before ~ -- this often caused app to seize up
+                    if (recDataString.length() > 20 && endOfLineIndex!= -1) {           //22 is min size - 6 is num of parse characters - this allows app to function properly
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);    // extract string
-                        txtString.setText("Data Received = " + dataInPrint);
+                        displayDataRec = "Data Received = " + dataInPrint;
+                        txtString.setText(displayDataRec);
                         int dataLength = dataInPrint.length();                          //get length of data received
                         txtStringLength.setText("String Length = " + String.valueOf(dataLength));
 
                         if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
                         {
+                            System.out.println("\t\t\t Data to be displayed: "+recDataString);
                             String[] recDataArray = recDataString.toString().split("\\+");
                             /*String sensor0 = recDataString.substring(1, 5);             //get sensor value from string between indices 1-5
                             String sensor1 = recDataString.substring(6, 10);            //same again...
@@ -102,8 +111,7 @@ public class MainActivity extends Activity {
 
                         }
                         recDataString.delete(0, recDataString.length());                    //clear all string data
-                        // strIncom =" ";
-                        //dataInPrint = " ";
+
                     }
                 }
             }
@@ -233,6 +241,7 @@ public class MainActivity extends Activity {
                     String readMessage = new String(buffer, 0, bytes);
                     // Send the obtained bytes to the UI Activity via handler
                     bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
+                    //System.out.println(readMessage);      //Debug ensure still gets info when screen freezes - data keeps being recorded here ok
                 } catch (IOException e) {
                     break;
                 }
