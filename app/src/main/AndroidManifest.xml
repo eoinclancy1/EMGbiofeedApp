@@ -53,10 +53,6 @@
             android:label="@string/title_activity_excercise_list" >
         </activity>
         <activity
-            android:name=".OptoJumpVisual"
-            android:label="@string/title_activity_opto_jump_visual" >
-        </activity>
-        <activity
             android:name=".VerticalSliderActivity">
         </activity>
     </application>
