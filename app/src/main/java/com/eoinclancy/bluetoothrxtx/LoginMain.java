@@ -1,7 +1,9 @@
 package com.eoinclancy.bluetoothrxtx;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -41,6 +43,7 @@ public class LoginMain extends ActionBarActivity {
                 //Intent i = new Intent(LoginMain.this, VerticalSliderActivity.class);      //Goes to the slider class
                 //Intent i = new Intent(LoginMain.this, Display.class);     //Can uncomment to use this simple text-display screen again
                 //Intent i = new Intent(LoginMain.this, DeviceListActivity.class);       //Can uncomment this to get from login to sensor data reading screen
+                saveUsername(str);
                 Intent i = new Intent(LoginMain.this, ExerciseList.class);               //Goes to the list Exercises activity
                 i.putExtra("Username", str);    //Putting the username, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
                 startActivity(i);
@@ -60,6 +63,16 @@ public class LoginMain extends ActionBarActivity {
             startActivityForResult(i,1);        //User presented with signup screen, from which once completed will return here to execute onActivityResult method
 
         }
+    }
+
+    //Used to add the username to sharedPreferences so it is accessible throughout the app
+    //Used when retrieving the highscore for each user
+    private void saveUsername(String uname){
+        SharedPreferences sharedPref = getSharedPreferences("FYP_Username",Context.MODE_PRIVATE);   //Used for sharing data between activities - accessible within the app only
+        SharedPreferences.Editor editor = sharedPref.edit();                                        //Must use an editor to modifiy/create the sharedPreferences
+        String id = helper.searchID(uname);                                                         //Getting the DB ID corresponding to the username
+        editor.putString("Username",id);                                                            //Store the ID in the sharedPreferences
+        editor.commit();                                                                            //Commit the changes to the sharedPreferences
     }
 
     //Deals with control being handed back to login screen after new user is created
@@ -85,6 +98,8 @@ public class LoginMain extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(LoginMain.this, NotificationActivity.class);
+            startActivity(intent);
             return true;
         }
 

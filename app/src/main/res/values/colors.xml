@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="inst1">#F06292</color>
+    <color name="inst2">#BA68C8</color>
+    <color name="inst3">#FFA726</color>
+    <color name="inst4">#81C784</color>
+    <color name="inst5">#7986CB</color>
+    <color name="inst6">#FF5722</color>
+    <color name="inst7">#64B5E1</color>
+    <color name="inst8">#9575CD</color>
+    <color name="inst9">#81C784</color>
+    <color name="inst10">#7E57C2</color>
+
+    <color name="dot_inactive_inst1">#C2185B</color>
+    <color name="dot_inactive_inst2">#8E24AA</color>
+    <color name="dot_inactive_inst3">#F57C00</color>
+    <color name="dot_inactive_inst4">#388E3C</color>
+    <color name="dot_inactive_inst5">#3949AB</color>
+    <color name="dot_inactive_inst6">#D84315</color>
+    <color name="dot_inactive_inst7">#1976D2</color>
+    <color name="dot_inactive_inst8">#5E35B1</color>
+    <color name="dot_inactive_inst9">#388E3C</color>
+    <color name="dot_inactive_inst10">#4527A0</color>
+
+
+    <color name="dot_active_inst1">#F8BBD0</color>
+    <color name="dot_active_inst2">#E1BEE7</color>
+    <color name="dot_active_inst3">#FFCC80</color>
+    <color name="dot_active_inst4">#C8E6C9</color>
+    <color name="dot_active_inst5">#C5CAE9</color>
+    <color name="dot_active_inst6">#FFAB91</color>
+    <color name="dot_active_inst7">#BBDEFB</color>
+    <color name="dot_active_inst8">#D1C4E9</color>
+    <color name="dot_active_inst9">#C8E6C9</color>
+    <color name="dot_active_inst10">#B39DDB</color>
+
+    <array name="dot_active">
+        <item>@color/dot_active_inst1</item>
+        <item>@color/dot_active_inst2</item>
+        <item>@color/dot_active_inst3</item>
+        <item>@color/dot_active_inst4</item>
+        <item>@color/dot_active_inst5</item>
+        <item>@color/dot_active_inst6</item>
+        <item>@color/dot_active_inst7</item>
+        <item>@color/dot_active_inst8</item>
+        <item>@color/dot_active_inst9</item>
+        <item>@color/dot_active_inst10</item>
+    </array>
+
+    <array name="dot_inactive">
+        <item>@color/dot_inactive_inst1</item>
+        <item>@color/dot_inactive_inst2</item>
+        <item>@color/dot_inactive_inst3</item>
+        <item>@color/dot_inactive_inst4</item>
+        <item>@color/dot_inactive_inst5</item>
+        <item>@color/dot_inactive_inst6</item>
+        <item>@color/dot_inactive_inst7</item>
+        <item>@color/dot_inactive_inst8</item>
+        <item>@color/dot_inactive_inst9</item>
+        <item>@color/dot_inactive_inst10</item>
+    </array>
+
+    <array name="page_colour">
+        <item>@color/inst1</item>
+        <item>@color/inst2</item>
+        <item>@color/inst3</item>
+        <item>@color/inst4</item>
+        <item>@color/inst5</item>
+        <item>@color/inst6</item>
+        <item>@color/inst7</item>
+        <item>@color/inst8</item>
+        <item>@color/inst9</item>
+        <item>@color/inst10</item>
+    </array>
+</resources>

@@ -1,10 +1,26 @@
 <resources>
-    <string name="app_name">BluetoothRxTx</string>
+    <string name="app_name">EMG Biofeedback</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_device_list">DeviceListActivity</string>
     <string name="title_activity_login_main">login_main</string>
     <string name="emptyString" />
+    <string name="curr_best">Current Best</string>
+    <string name="high_score">High Score</string>
+    <string name="joint_angle">Joint Angle</string>
+    <string name="sqts_completed">Squats Completed</string>
+    <string name="vmoL">VMO Left</string>
+    <string name="vmoR">VMO Right</string>
+    <string name="calfL">Calf Left</string>
+    <string name="calfR">Calf Right</string>
+
+    <string name="notificationInfo">Enable notifications to provide alert after 24 hours of inactivity?</string>
+    <string name="enable">Enable Notifications</string>
+    <string name="disable">Disable Notifications</string>
+
+    <string name="BTdevMsg1">Ensure device is turned on!</string>
+    <string name="BTdevMsg2">Select EMG Bluetooth device from paired devices:</string>
+    <string name="BTdevice">Connect to EMG BIOFEEDBACK Device</string>
 
     <!-- Added for the listView -->
     <string-array name="exercise_names">
@@ -23,6 +39,77 @@
     </string-array>
     <string name="title_activity_excercise_list">Please Select an Exercise</string>
     <string name="title_activity_opto_jump_visual">OptoJumpVisual</string>
+    <string name="settings">Settings</string>
 
     <!-- End of added for listView -->
+
+    <!-- Start of strings for instructions -->
+    <string name="instTitle">Equipment Setup Guide</string>
+    <string name="squat">Squat</string>
+    <string name="eval1">Evaluation - Step 1</string>
+    <string name="trenTest">Trendelenberg Test</string>
+    <string name="trenExpl"><u>The Trendelenburg test is primarily used to determine and detect gluteus medius tendon tears or weakness in the hip abductors</u></string>
+    <string name="trenSteps1">\u2022 The medically trained examiner, who assesses the pelvic location, stands behind the patient </string>
+    <string name="trenSteps2">\u2022 The patient is asked to stand on one foot and is then examined</string>
+    <string name="trenSteps3">\u2022 <b><u>Normal!</u></b>  - Pelvis remains level: Torso does not lean towards the supported side of the body.</string>
+    <string name="trenSteps4">\u2022 <b><u>Trendelenburg Sign!</u></b> - Pelvis sags towards lifted leg. Patient will lose balance or try to maintain balance using a compensatory leaning of the torso towards the side of injury.\n</string>
+    <string name="trenSteps5">\u2022 Repeat and evaluate on the other leg \n</string>
+    <string name="trenSteps6">\t \u2022 Where the result is normal for both legs, proceed to next test</string>
+    <string name="trenSteps7">\t \u2022 Otherwise  - The assessor will advise patient further</string>
+
+    <string name="method"><b><u>Method</u></b></string>
+    <string name="result"><b><u>Result</u></b></string>
+    <string name="conclusion"><b><u>Conclusion</u></b></string>
+
+    <string name="eval2">Evaluation - Step 2</string>
+    <string name="FMStest">FMS Test</string>
+    <string name="fmsSteps1"><u>This test examines the range of motion and form of the patient performing a deep squat</u></string>
+    <string name="fmsSteps2">This is used to determine whether adjustments need to be made before use of equipment</string>
+    <string name="fmsSteps3">\u2022 The patient is observed as a light pole is held overhead with arms fully stretched, about shoulder width apart</string>
+    <string name="fmsSteps4">\u2022 The patient performs a squat and the performance is graded</string>
+    <string name="fmsSteps5">\u2022 3 - Correct form observed, no compensations required</string>
+    <string name="fmsSteps6">\u2022 2 - Correct form observed using a compensation e.g raising of calbes by 1-2"</string>
+    <string name="fmsSteps7">\u2022 1 - Unable to perform movement even with compensations</string>
+    <string name="fmsSteps8">\u2022 0 - Pain observed during movement</string>
+    <string name="fmsSteps9">\u2022 Score of 3 - Perform exercise as normal</string>
+    <string name="fmsSteps10">\u2022 Score of 2 - Perform exercise with specified compensation</string>
+    <string name="fmsSteps11">\u2022 Score below 2 - Assessor will advise patient further</string>
+    <string name="fmsCompEx">Example of compensatory action - Alleviating forces on calf muscles</string>
+
+    <string name="setup1">Equipment Setup - Step 1 </string>
+    <string name="cableSetup">Sensor Pack Cable Setup</string>
+    <string name="accSetup">\u2022 Ensure the knee strap cables are connected as follows: </string>
+    <string name="emgSetup">\u2022 Ensure the EMG coloured cables are connected as follows: </string>
+
+    <string name="setup2">Equipment Setup - Step 2 </string>
+    <string name="setup3">Equipment Setup - Step 3 </string>
+    <string name="acc1">Accelerometer Strap Placement</string>
+    <string name="acc2">Apply the strap below the knee as shown below</string>
+    <string name="acc3">Apply the strap above the knee as shown below</string>
+    <string name="acc4"><b>Note: </b>The accelerometer must be facing forward as shown</string>
+
+    <string name="emgElect">EMG Electrodes</string>
+    <string name="emgPrep">Skin Preparation</string>
+    <string name="emgPrep1">\u2022 Remove excess hair from the desired region by clipping/shaving</string>
+    <string name="emgPrep2">\u2022 Thoroughly clean the skin to remove oil, make-up etc.</string>
+    <string name="emgPrep3">\u2022 This can be achieved using water and a clean towel</string>
+    <string name="emgPrep4">\u2022 Some individuals will require alcohol wipes to properly clean the skin</string>
+    <string name="emgPrep5">\u2022 Ensure the skin is thoroughly dry before the electrodes are placed</string>
+
+    <string name="emgExpl">Electrode Placement</string>
+    <string name="emgExpl1">For accurate muscle activity detection, the electrodes must be placed as described in the next two slides</string>
+    <string name="emgExpl2"><u><b>Note:</b></u> The black wire should be placed on a separate section of the body, such as a bony location or non-adjacent muscle </string>
+    <string name="emgExpl3"><u><b>Note:</b></u> The red wire should be placed in the middle of the muscle body </string>
+    <string name="emgExpl4"><u><b>Note:</b></u> The blue wire should be placed towards the end of the muscle body </string>
+
+    <string name="setup4">Equipment Setup - Step 4 </string>
+    <string name="emgPlacement">EMG Electrode Placement</string>
+    <string name="calf">Calf Muscle- Gastrocnemius Medial Head</string>
+
+
+    <string name="setup5">Equipment Setup - Step 5 </string>
+    <string name="vmo">Vastus Medialis Oblique</string>
+
+    <!-- End of strings for instructions -->
+
 </resources>
