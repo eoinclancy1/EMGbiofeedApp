@@ -117,7 +117,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_weight="0"
-        android:paddingTop="30dp">
+        android:paddingTop="30dp"
+        android:layout_marginRight="20dp">
 
 
         <ProgressBar
@@ -221,6 +222,17 @@
             android:layout_alignParentEnd="true"
             android:layout_above="@id/vert_progress_bar4"
             android:id="@+id/calfR" />
+
+
+        <Button
+            android:text="Give Up!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/finishButton"
+            android:layout_below="@+id/vert_progress_bar1"
+            android:layout_centerHorizontal="true"
+            android:background="#EEEEEE"
+            android:onClick="onButtonClick"/>
 
     </RelativeLayout>
 

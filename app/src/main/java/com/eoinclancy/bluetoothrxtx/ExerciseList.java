@@ -115,7 +115,8 @@ public class ExerciseList extends ActionBarActivity {
                     }
 
                     else{                                                               //All other available selections go to the bluetooth setup class
-                        Intent i = new Intent(ExerciseList.this, VerticalSliderActivity.class);
+                        //Intent i = new Intent(ExerciseList.this, VerticalSliderActivity.class);
+                        Intent i = new Intent(ExerciseList.this, ResultsScreen.class);
                         i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
                         startActivity(i);
                     }

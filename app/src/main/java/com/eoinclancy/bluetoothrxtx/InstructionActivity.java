@@ -43,9 +43,9 @@ public class InstructionActivity extends AppCompatActivity {
         next = (Button)findViewById(R.id.next_btn);
 
         layouts = new int[]{R.layout.inst_screen_1, R.layout.inst_screen_2, R.layout.inst_screen_3,
-                            R.layout.inst_screen_4, R.layout.inst_screen_5, R.layout.inst_screen_6,
-                            R.layout.inst_screen_7, R.layout.inst_screen_8, R.layout.inst_screen_9,
-                            R.layout.inst_screen_10};
+                R.layout.inst_screen_4, R.layout.inst_screen_5, R.layout.inst_screen_6,
+                R.layout.inst_screen_7, R.layout.inst_screen_8, R.layout.inst_screen_9,
+                R.layout.inst_screen_10};
         addDotsBottom(0);
         changeStatusBarColour();
         viewPagerAdapter = new ViewPagerAdapter();
@@ -55,7 +55,7 @@ public class InstructionActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(InstructionActivity.this, DeviceListActivity.class);
+                Intent i = new Intent(InstructionActivity.this, CalibrationScreen.class);
                 i.putExtra("previous","InstructionActivity.class");
                 startActivity(i);
             }
@@ -69,7 +69,8 @@ public class InstructionActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(current);
                 }
                 else{
-                    Intent i = new Intent(InstructionActivity.this, DeviceListActivity.class);
+                    //Intent i = new Intent(InstructionActivity.this, DeviceListActivity.class);
+                    Intent i = new Intent(InstructionActivity.this, CalibrationScreen.class);
                     i.putExtra("previous","InstructionActivity.class");
                     startActivity(i);   // Add in the activity in this section that you want to go to
                 }

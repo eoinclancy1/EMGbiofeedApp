@@ -72,7 +72,7 @@ public class LoginMain extends ActionBarActivity {
         SharedPreferences.Editor editor = sharedPref.edit();                                        //Must use an editor to modifiy/create the sharedPreferences
         String id = helper.searchID(uname);                                                         //Getting the DB ID corresponding to the username
         editor.putString("Username",id);                                                            //Store the ID in the sharedPreferences
-        editor.commit();                                                                            //Commit the changes to the sharedPreferences
+        editor.apply();                                                                            //Commit the changes to the sharedPreferences
     }
 
     //Deals with control being handed back to login screen after new user is created

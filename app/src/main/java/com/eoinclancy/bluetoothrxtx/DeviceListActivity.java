@@ -68,7 +68,6 @@ public class DeviceListActivity extends AppCompatActivity {
 
         // Add previosuly paired devices to the array
         if (pairedDevices.size() > 0) {
-            findViewById(R.id.title1_paired_devices).setVisibility((View.VISIBLE));
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);//make title viewable
             for (BluetoothDevice device : pairedDevices) {
                 if(device.getName().equals("BIOFEEDBACK_SENSOR")){
@@ -94,9 +93,20 @@ public class DeviceListActivity extends AppCompatActivity {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
+            Bundle extras = getIntent().getExtras();
+            int[] setupValues = {90, 10, 1}; //default values
+            if (extras != null){
+                setupValues = extras.getIntArray("setupDetails");
+                //setupValues[0] has squatting angle
+                //setupValues[1] has number of squats
+                //setupValues[2] has 0 for left leg, 1 for right leg
+
+            }
+
             // Make an intent to start next activity while taking an extra which is the MAC address.
             Intent i = new Intent(DeviceListActivity.this, MainActivity.class);
             i.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            i.putExtra("setupDetails", setupValues);
             startActivity(i);
         }
     };

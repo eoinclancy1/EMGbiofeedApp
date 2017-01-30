@@ -25,8 +25,8 @@ public class CheckLastRunService extends Service {
     private static Long MILLISECS_PER_DAY = 86400000L;
     private static Long MILLISECS_PER_MIN = 60000L;
 
-      //private static long delay = MILLISECS_PER_MIN * 1;   // 1 minute (for testing)
-      private static long delay = MILLISECS_PER_DAY * 1;   // 1 days - works out to be roughly 24hrs
+    //private static long delay = MILLISECS_PER_MIN * 1;   // 1 minute (for testing)
+    private static long delay = MILLISECS_PER_DAY * 1;   // 1 days - works out to be roughly 24hrs
 
     @Override
     public void onCreate() {
@@ -61,7 +61,7 @@ public class CheckLastRunService extends Service {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + delay, pi);
         //RTC_WAKEUP -- Wakes up the device to fire the pending intent at the specified time
-            //Alternative would be RTC - this would improve battery consumption as it does not wake up the device
+        //Alternative would be RTC - this would improve battery consumption as it does not wake up the device
         //Fire alarm at the current time + the specified delay time (24/48 hours)
         //Then fire the above declared intent
 

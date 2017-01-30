@@ -1,14 +1,17 @@
 package com.eoinclancy.bluetoothrxtx;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,14 +51,23 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar vProgBar4;
     float currentBestValue = 0;
     float currentHighScore = 0;
-    float standAngle = 0;
-    float fullSquatAngle = 90;
+    float standAngle = 10;
+    float progress = 0;
+    float jointAngleDifference = 0;
+    float emg1MaxVal = 0;
+    float emg2MaxVal = 0;
+    float emg3MaxVal = 0;
+    float emg4MaxVal = 0;
+    float setSquatAngle = 90; //Default 90 deg
+    int setNumSquats = 10; //Default 10 squats
+    int setLegForJointAngle = 1; //Right leg by default;
     boolean metDesiredAngle = false;
     int countSquats = 0;
     private Random random = new Random();
     float jointAngleVal;
+    boolean setGIFStatus = false;
 
-
+    Button statusButton;
 
 
     // SPP UUID service - this should work for most devices
@@ -69,6 +81,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            int[] setupValues = extras.getIntArray("setupDetails");
+            setSquatAngle = setupValues[0];          //has squatting angle
+            setNumSquats = setupValues[1];           //has number of squats
+            setLegForJointAngle = setupValues[2];    //setupValues[2] has 0 for left leg, 1 for right leg
+
+        }
+
+        updateGIFStatus(0);                           //Setting the GIF to be displayed on results page, 0 corresponds to fail, no squats performed
         currentHighScore = getHighscore();
         System.out.println("Current Highscore is " + currentHighScore);
         //Additions for the circular progress bar material
@@ -77,13 +100,16 @@ public class MainActivity extends AppCompatActivity {
         //circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         circularProgressBar.setProgressBarWidth(getResources().getDimension(R.dimen.activity_horizontal_margin));
         circularProgressBar.setBackgroundProgressBarWidth(getResources().getDimension(R.dimen.default_background_stroke_width));
-
         int animationDuration = 2; // 2500ms = 2,5s
         circularProgressBar.setProgressWithAnimation(2, animationDuration); // Default duration = 1500ms
+
+
         vProgBar1 = (ProgressBar)findViewById(R.id.vert_progress_bar1);
         vProgBar2 = (ProgressBar)findViewById(R.id.vert_progress_bar2);
         vProgBar3 = (ProgressBar)findViewById(R.id.vert_progress_bar3);
         vProgBar4 = (ProgressBar)findViewById(R.id.vert_progress_bar4);
+
+        statusButton = (Button) findViewById(R.id.finishButton);
 
         currBestVal = (TextView)findViewById(R.id.currentBestValue);
         currBestVal.setText("0.0°");
@@ -92,20 +118,20 @@ public class MainActivity extends AppCompatActivity {
 
         angle = (TextView)findViewById(R.id.jointAngle);
         numSquats = (TextView)findViewById(R.id.NumSquats);
-        numSquats.setText("Squats Completed: \t 0/100");
+        numSquats.setText("Squats Completed: \t 0/" + setNumSquats);
 
 
-        //*******From original screen - now called under layout -> activity_mainorg.xml**********//
+
         //Link the buttons and textViews to respective views
         //btnOn = (Button) findViewById(R.id.buttonOn);
         //btnOff = (Button) findViewById(R.id.buttonOff);
-        //txtString = (TextView) findViewById(R.id.txtString);
-        //txtStringLength = (TextView) findViewById(R.id.testView1);
-        //jointAngleText = (TextView) findViewById(R.id.JointAngleText);
-        //jointAngleProgress = (TextView) findViewById(R.id.JointAngleProgress);
-        //sensorView1 = (TextView) findViewById(R.id.sensorView1);
-        //sensorView2 = (TextView) findViewById(R.id.sensorView2);
-        //sensorView3 = (TextView) findViewById(R.id.sensorView3);
+        txtString = (TextView) findViewById(R.id.txtString);
+        txtStringLength = (TextView) findViewById(R.id.testView1);
+        jointAngleText = (TextView) findViewById(R.id.JointAngleText);
+        jointAngleProgress = (TextView) findViewById(R.id.JointAngleProgress);
+        sensorView1 = (TextView) findViewById(R.id.sensorView1);
+        sensorView2 = (TextView) findViewById(R.id.sensorView2);
+        sensorView3 = (TextView) findViewById(R.id.sensorView3);
 
 //Handler executed on receiving new data from BT device
         bluetoothIn =  new Handler() {
@@ -120,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     //System.out.println("\t\t\t\t &&&&&&&&& " + endOfLineIndex);
 
                     //if (endOfLineIndex > 0) {                                           // make sure there data before ~ -- this often caused app to seize up
-                    if (recDataString.length() > 20 && endOfLineIndex!= -1) {           //22 is min size - 6 is num of parse characters - this allows app to function properly
+                    if (recDataString.length() > 32 && endOfLineIndex!= -1) {           //32 is min size, - 8 is num of parse characters - this allows app to function properly (Was 20 for HC-05_in_clean for 2 with 1 myoware, and 6 parse char)
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);    // extract string
                         displayDataRec = "Data Received = " + dataInPrint;
 
@@ -128,30 +154,44 @@ public class MainActivity extends AppCompatActivity {
 
                         if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
                         {
-                            //System.out.println("\t\t\t Data to be displayed: "+recDataString);
-                            String[] recDataArray = recDataString.toString().split("\\+");
+                            System.out.println("\t\t\t Data to be displayed: "+recDataString);
+                            String[] recDataArray = recDataString.toString().split("\\+");  //Data arrives as "#LeftLegDeg+RightLegDeg+Emg1+Emg2+Emg3+Emg4~"
+                            //e.g "#101.20+102.30+2.55+1.67+3.23+1.98+~"
 
-                            String sensor0 = recDataArray[0].replace("#","");
-                            sensor0 = sensor0.substring(0,sensor0.length()-1);          //scaling the angle value to 1 decimal place
-                            String sensor1 = recDataArray[1];                           //stores EMG 1 value
-                            String sensor2 = recDataArray[2];                           //stores EMG 2 value
-                            String sensor3 = recDataArray[3];                           //stores EMG 3 value
-
+                            String sensorAngleL = recDataArray[0].replace("#","");                      //Left Leg Angle
+                            sensorAngleL = sensorAngleL.substring(0,sensorAngleL.length()-1);           //scaling the angle value to 1 decimal place
+                            String sensorAngleR = recDataArray[1];                                      //Right leg Angle
+                            sensorAngleR = sensorAngleR.substring(0,sensorAngleR.length()-1);           //scaling the angle value to 1 decimal place
+                            String EMGsensor1 = recDataArray[2];                            //stores EMG 1 value
+                            String EMGsensor2 = recDataArray[3];                            //stores EMG 2 value
+                            String EMGsensor3 = recDataArray[4];                            //stores EMG 3 value
+                            String EMGsensor4 = recDataArray[5];                            //stores EMG 3 value
 
                             // First joint angle
-                            jointAngleVal = Math.abs(Float.parseFloat(sensor0));
-                            String.format("%.1f", jointAngleVal);
-                            if (jointAngleVal>100){                                     //To avoid case of value too large - could be set to custom value in config setup
-                                jointAngleVal = 100;
+                            if  (setLegForJointAngle == 0){
+                                jointAngleVal = Float.parseFloat(sensorAngleL);
                             }
+                            else{
+                                jointAngleVal = Float.parseFloat(sensorAngleR);
+                            }
+                            if (jointAngleVal < 0) jointAngleVal = 0;
+                            jointAngleVal =  Math.abs(jointAngleVal);
+
+                            String.format("%.1f", jointAngleVal);
+                            //if (jointAngleVal>100){                                     //To avoid case of value too large - could be set to custom value in config setup
+                            //    jointAngleVal = 100;
+                            //}
                             angle.setText(jointAngleVal+"°");                           //Display the joint angle
-                            circularProgressBar.setProgress(jointAngleVal);             //Set progress of circular buffer
+
+                            progress = (jointAngleVal/setSquatAngle)*100;
+
+                            circularProgressBar.setProgress(progress);             //Set progress of circular buffer
 
                             if (jointAngleVal > currentBestValue) {                     //Set the best value for this session
                                 currBestVal.setText(jointAngleVal+"°");
                                 currentBestValue = jointAngleVal;
                             }
-
+                            //could below if go inside above if? save time
                             if(jointAngleVal > currentHighScore){                       //Set the highscore if a new best has been achieved
                                 highscoreVal.setText(jointAngleVal + "°");
                                 updateHighscore(jointAngleVal);                         //Update the value stored in the SQLite DB
@@ -162,24 +202,27 @@ public class MainActivity extends AppCompatActivity {
                             //Count up squats
                             squatCounter(jointAngleVal);                                //Increments the on-screen counter when a squat has been successfully perfromed
 
+                            //Max difference in joint angle between legs
+                            jointAngleDifference(sensorAngleL, sensorAngleR);
+
                             //First EMG signal
-                            float vmo1 = Float.parseFloat(sensor1);                     //Get first EMG Value
-                            vProgBar1.setProgress((int)(vmo1 * 100));                   //Set progress of EMG progress bar
+                            float vmo1 = Float.parseFloat(EMGsensor1);                     //Get first EMG Value
+                            vProgBar1.setProgress((int)(vmo1 * 10));                   //Set progress of EMG progress bar
 
                             //Second EMG signal
-                            float vmo2 = Float.parseFloat(sensor2);                     //Get second EMG Value
-                            vProgBar2.setProgress((int)(vmo2 * 100));                   //Set progress of EMG progress bar
+                            float vmo2 = Float.parseFloat(EMGsensor2);                     //Get second EMG Value
+                            vProgBar2.setProgress((int)(vmo2 * 10));                   //Set progress of EMG progress bar
 
                             //Third EMG signal
-                            float vmo3 = Float.parseFloat(sensor3);                     //Get third EMG Value
-                            vProgBar3.setProgress((int)(vmo3 * 100));                   //Set progress of EMG progress bar
+                            float vmo3 = Float.parseFloat(EMGsensor3);                     //Get third EMG Value
+                            vProgBar3.setProgress((int)(vmo3 * 10));                   //Set progress of EMG progress bar
 
                             //Fourth EMG signal
-                            //float vmo4 = Float.parseFloat(sensor4);                     //Get fourth EMG Value
-                            //vProgBar1.setProgress((int)(vmo1 * 100));                   //Set progress of EMG progress bar
+                            float vmo4 = Float.parseFloat(EMGsensor4);                     //Get fourth EMG Value
+                            vProgBar4.setProgress((int)(vmo4 * 10));                   //Set progress of EMG progress bar
 
 
-
+                            updateMaxEmgValues(vmo1, vmo2, vmo3, vmo4);
                             //jointAngleText.setText(" Joint Angle = " + sensor0 + "°");    //update the textviews with sensor values
                             //sensorView1.setText(" Sensor 1 Voltage = " + sensor1 + "V");
                             //sensorView2.setText(" Sensor 2 Voltage = " + sensor2 + "V");
@@ -232,12 +275,27 @@ public class MainActivity extends AppCompatActivity {
         if (currAngle <= standAngle && metDesiredAngle == true){
             metDesiredAngle = false;
             countSquats++;
-            numSquats.setText("Squats Completed: \t " + countSquats + "/100");
+            numSquats.setText("Squats Completed: \t " + countSquats + "/" + setNumSquats);
+
+            if(setGIFStatus == false){                                  //Method called only when first squat is completed
+                updateGIFStatus(1);                                     //Updates the GIF to display on results screen
+                setGIFStatus = true;
+            }
+
+            if (countSquats == setNumSquats){
+                statusButton.setText("Finished!");
+                showCompleteNotification();                             //Displays notification for 10 seconds informing user that exercise is complete
+                //If user doesnt respond, they can continue the exercise or click the 'Finish' button
+                updateGIFStatus(2);
+                //also must prepare the values for passing to next activity.
+            }
         }
-        else if (currAngle >= fullSquatAngle && metDesiredAngle == false){
+        else if (currAngle >= setSquatAngle && metDesiredAngle == false){
             metDesiredAngle = true;
         }
     }
+
+
 
     //Updates the highscore stored in a users entry within the database
     private void updateHighscore(float highscore){
@@ -260,6 +318,25 @@ public class MainActivity extends AppCompatActivity {
             result = Float.parseFloat(r);                                                               //Convert highscore to type float
         }
         return result;
+    }
+
+    private void jointAngleDifference(String left, String right){
+        float leftAngle = Math.abs(Float.parseFloat(left));
+        float rightAngle = Math.abs(Float.parseFloat(right));
+        jointAngleDifference = Math.abs(leftAngle - rightAngle);
+        if (jointAngleDifference > 5){
+            //set text to red
+        }
+        else{
+            //set text to green
+        }
+    }
+
+    private void updateMaxEmgValues(float emg1, float emg2, float emg3, float emg4){
+        if (emg1 > emg1MaxVal) emg1MaxVal = emg1;
+        if (emg2 > emg2MaxVal) emg2MaxVal = emg2;
+        if (emg3 > emg3MaxVal) emg3MaxVal = emg3;
+        if (emg4 > emg4MaxVal) emg4MaxVal = emg4;
     }
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
@@ -384,4 +461,68 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void showCompleteNotification() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this).setTitle("Exercise Complete").setMessage("You have completed your exercise!\n\t Click Finish to see a summary of your results.");
+        dialog.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //exitLauncher();
+                System.out.println("Confirm Selected");
+                Intent i = new Intent(MainActivity.this, ResultsScreen.class);               //Goes to the list Exercises activity
+                float[] exerciseHighlights = {currentBestValue, jointAngleDifference, emg1MaxVal, emg2MaxVal, emg3MaxVal, emg4MaxVal};
+                i.putExtra("exHighlights", exerciseHighlights);    //Putting the results, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
+                startActivity(i);
+            }
+        });
+        final AlertDialog alert = dialog.create();
+        alert.show();
+
+// Hide after some seconds
+        final Handler handler  = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (alert.isShowing()) {
+                    alert.dismiss();
+                }
+            }
+        };
+
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        handler.postDelayed(runnable, 10000);
+    }
+
+
+
+    public void onButtonClick(View v) {
+        System.out.println("ButtonPressed");
+        if (v.getId() == R.id.finishButton) {       //Checking if the ID of the button selected is the finish Button
+            System.out.println("******************ButtonPressed");
+            Intent i = new Intent(MainActivity.this, ResultsScreen.class);               //Goes to the list Exercises activity
+            float[] exerciseHighlights = {currentBestValue, jointAngleDifference, emg1MaxVal, emg2MaxVal, emg3MaxVal, emg4MaxVal};
+            i.putExtra("exHighlights", exerciseHighlights);    //Putting the results, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
+            startActivity(i);
+
+        }
+    }
+
+    //Updates shared preferences, storing a value regarding which GIF to display on results screen
+    // 0 -> no squat performed (default at start)
+    // 1 -> some squats performed
+    // 2 -> all squats completed
+    private void updateGIFStatus(int current){
+        SharedPreferences sharedPref = getSharedPreferences("GIF_Status",Context.MODE_PRIVATE);     //Used for sharing data between activities - accessible within the app only
+        SharedPreferences.Editor editor = sharedPref.edit();                                        //Must use an editor to modifiy/create the sharedPreferences
+        String value = current+"";                                                                  //Storing the current value
+        editor.putString("Status",value);                                                            //Store the value in the sharedPreferences
+        editor.apply();
+    }
+
 }

@@ -137,4 +137,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return b;
     }
 
+    public EmailInformation getEmailInfo(String ID){
+        Integer id = Integer.parseInt(ID) + 1;                      //Must increment by 1 to get correct row!
+        db = this.getReadableDatabase();
+        String query = "select id, name, email, trainer_email  from " + TABLE_NAME;    //Construct query message
+        Cursor cursor = db.rawQuery(query, null);                   //Store results from query
+        String name = "";                                                //Default values
+        String userEmail = "";
+        String trainerEmail = "";
+        if (cursor.move(id)){                                       //Point to the entry corresponding to the provided username
+            name = cursor.getString(1);                             //Get the associated name
+            userEmail = cursor.getString(2);                        //Get associated user email address
+            trainerEmail = cursor.getString(3);                     //Get associated trainer email address
+            System.out.println(name);
+            System.out.println(userEmail);
+            System.out.println(trainerEmail);
+        }
+
+        EmailInformation info = new EmailInformation(name, userEmail, trainerEmail);
+
+        return info;
+    }
+
 }
