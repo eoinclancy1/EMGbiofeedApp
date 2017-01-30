@@ -23,7 +23,8 @@
         android:id="@+id/exercise_itemName"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/exercise_imageView"
-        android:layout_toEndOf="@+id/exercise_imageView" />
+        android:layout_toEndOf="@+id/exercise_imageView"
+        android:layout_marginLeft="20dp" />
 
     <TextView
         android:layout_width="wrap_content"

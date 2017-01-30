@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/inst7">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:textColor="@android:color/white"
+            android:text="@string/emgElect"
+            android:textSize="45sp"
+
+            android:textStyle="bold|italic"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"
+            android:text="@string/emgPrep"
+            android:textSize="40dp"
+            android:textStyle="italic"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgPrep1"
+            android:textColor="@android:color/white"
+            android:textSize="27dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgPrep2"
+            android:textColor="@android:color/white"
+            android:textSize="27dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgPrep3"
+            android:textColor="@android:color/white"
+            android:textSize="27dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgPrep4"
+            android:textColor="@android:color/white"
+            android:textSize="27dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgPrep5"
+            android:textColor="@android:color/white"
+            android:textSize="27dp" />
+
+
+        <ImageView
+            android:layout_width="535dp"
+            android:layout_height="414dp"
+            android:src="@drawable/inst_cleanskin"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>

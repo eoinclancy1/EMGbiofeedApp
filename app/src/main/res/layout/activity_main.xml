@@ -1,102 +1,240 @@
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
-
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</RelativeLayout>
-
--->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    tools:context="com.eoinclancy.bluetoothrxtx.MainActivity"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:background="@drawable/wallpaperoption">
 
-    <TextView
-        android:id="@+id/testView1"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtString"
-        android:text=""
-        android:textSize="15sp" />
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:layout_gravity="top|center_horizontal"
+        android:gravity="top|center_horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:id="@+id/TopView">
 
-    <TextView
-        android:id="@+id/txtString"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/testView1"
-        android:layout_alignParentBottom="true"
-        android:text=""
-        android:textSize="15sp" />
+        <TextView
+            android:text="@string/curr_best"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/currentBest"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"/>
 
-    <Button
-        android:id="@+id/buttonOn"
+        <TextView
+            android:text="@string/high_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/highscore"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:text="@string/joint_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/JointAngleText"
+            android:textSize="30sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_width="180dp"
+            android:layout_height="174dp"
+            app:cpb_background_progressbar_color="#FFCDD2"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progressbar_color="#F44336"
+            app:cpb_progressbar_width="10dp"
+            android:id="@+id/circularPbar"
+            android:layout_below="@+id/JointAngleText"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="@string/sqts_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circularPbar"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:textSize="40sp"
+            android:background="@drawable/textviewoutline"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/NumSquats" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jointAngle"
+            android:textSize="40sp"
+            android:layout_alignBottom="@+id/circularPbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="61dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/currentBest"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="40sp"
+            android:id="@+id/currentBestValue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/highscore"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:textSize="40sp"
+            android:id="@+id/highscoreValue" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="LED ON" />
+        android:layout_gravity="bottom"
+        android:layout_weight="0"
+        android:paddingTop="30dp"
+        android:layout_marginRight="20dp">
 
-    <Button
-        android:id="@+id/buttonOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonOn"
-        android:layout_alignParentRight="true"
-        android:text="LED OFF" />
 
-    <TextView
-        android:id="@+id/sensorView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sensor 1 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/JointAngleProgress"
-        android:layout_centerHorizontal="true" />
+        <ProgressBar
+            android:id="@+id/vert_progress_bar1"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="160dp"
+            android:layout_height="190dp"
+            android:max="100"
+            android:layout_marginTop="55dp"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+        <ProgressBar
+            android:id="@+id/vert_progress_bar2"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="160dp"
+            android:layout_height="190dp"
+            android:max="100"
+            android:layout_marginTop="55dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"
+            />
+        <ProgressBar
+            android:id="@+id/vert_progress_bar3"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="160dp"
+            android:layout_height="190dp"
+            android:max="100"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="25dp"
 
-    <TextView
-        android:id="@+id/sensorView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sensor 2 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/sensorView1"
-        android:layout_centerHorizontal="true" />
+            />
+        <ProgressBar
+            android:id="@+id/vert_progress_bar4"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="160dp"
+            android:layout_height="190dp"
+            android:max="100"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"
+            />
 
-    <TextView
-        android:id="@+id/sensorView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sensor 3 Voltage = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/sensorView2"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:text="@string/vmoL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="25dp"
+            android:textSize="40sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/vmoL" />
 
-    <TextView
-        android:id="@+id/JointAngleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="196dp"
-        android:text=" Joint Angle =  ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:text="@string/vmoR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="15dp"
+            android:textSize="40sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/vmoR" />
 
-    <TextView
-        android:id="@+id/JointAngleProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Squat Progress =  ????"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/JointAngleText"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:text="@string/calfL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_marginLeft="30dp"
+            android:textSize="40sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@id/vert_progress_bar3"
+            android:id="@+id/calfL" />
 
-</RelativeLayout>
+        <TextView
+            android:text="@string/calfR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_marginRight="20dp"
+            android:textSize="40sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@id/vert_progress_bar4"
+            android:id="@+id/calfR" />
+
+
+        <Button
+            android:text="Give Up!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/finishButton"
+            android:layout_below="@+id/vert_progress_bar1"
+            android:layout_centerHorizontal="true"
+            android:background="#EEEEEE"
+            android:onClick="onButtonClick"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

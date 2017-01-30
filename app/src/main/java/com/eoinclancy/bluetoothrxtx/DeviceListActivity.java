@@ -1,16 +1,15 @@
 package com.eoinclancy.bluetoothrxtx;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,14 +17,12 @@ import android.widget.Toast;
 import java.util.Set;
 
 
-public class DeviceListActivity extends Activity {
+public class DeviceListActivity extends AppCompatActivity {
     // Debugging for LOGCAT
     private static final String TAG = "DeviceListActivity";
-    private static final boolean D = true;
 
 
     // declare button for launching website and textview for connection status
-    Button tlbutton;
     TextView textView1;
 
     // EXTRA string to send on to mainactivity
@@ -34,6 +31,9 @@ public class DeviceListActivity extends Activity {
     // Member fields
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
+
+    // Only want to display the BT device of the system
+    boolean systemFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +70,17 @@ public class DeviceListActivity extends Activity {
         if (pairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);//make title viewable
             for (BluetoothDevice device : pairedDevices) {
-                mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                if(device.getName().equals("BIOFEEDBACK_SENSOR")){
+                    mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    systemFound = true;
+                }
             }
         } else {
             //String noDevices = getResources().getText(R.string.none_paired).toString();
             mPairedDevicesArrayAdapter.add("no devices paired");
+        }
+        if (systemFound == false){
+            mPairedDevicesArrayAdapter.add("No EMG system found - Please pair the system with your device");
         }
     }
 
@@ -87,9 +93,20 @@ public class DeviceListActivity extends Activity {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
+            Bundle extras = getIntent().getExtras();
+            int[] setupValues = {90, 10, 1}; //default values
+            if (extras != null){
+                setupValues = extras.getIntArray("setupDetails");
+                //setupValues[0] has squatting angle
+                //setupValues[1] has number of squats
+                //setupValues[2] has 0 for left leg, 1 for right leg
+
+            }
+
             // Make an intent to start next activity while taking an extra which is the MAC address.
             Intent i = new Intent(DeviceListActivity.this, MainActivity.class);
             i.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            i.putExtra("setupDetails", setupValues);
             startActivity(i);
         }
     };
@@ -110,4 +127,7 @@ public class DeviceListActivity extends Activity {
             }
         }
     }
+
+
+
 }

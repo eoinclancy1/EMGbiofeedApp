@@ -23,7 +23,7 @@ import java.util.List;
 public class ExerciseList extends ActionBarActivity {
 
     private List<Exercise> myExcercises = new ArrayList<Exercise>();
-
+    private  ListView list;
 
 
     @Override
@@ -31,18 +31,18 @@ public class ExerciseList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excercise_list);
 
-        populateCarList();                                                              //Populate the list items required
+        populateExerciseList();                                                              //Populate the list items required
         populateListView();                                                             //Populate the ListView that is setup in the exercise_item_view.xml file
         registerClickCallback();                                                        //Handles clicks
     }
 
 
     /* Used to add items to the list */
-    private void populateCarList() {
-        myExcercises.add(new Exercise("OptoJump","Available",R.drawable.optojump));
-        myExcercises.add(new Exercise("Y-Balance Func. Test", "Available",R.drawable.ybalance));
+    private void populateExerciseList() {
+        myExcercises.add(new Exercise("Full Squat", "Available", R.drawable.squat));
         myExcercises.add(new Exercise("Single Squat", "Available", R.drawable.single_squat));
-        myExcercises.add(new Exercise("Full Squat", "Coming Soon!", R.drawable.squat));
+        myExcercises.add(new Exercise("OptoJump","Coming Soon!",R.drawable.optojump));
+        myExcercises.add(new Exercise("Y-Balance Func. Test", "Coming Soon!",R.drawable.ybalance));
         myExcercises.add(new Exercise("Arm Extension", "Coming Soon!", R.drawable.bicep_curl));
         myExcercises.add(new Exercise("Lunge Test", "Coming Soon!", R.drawable.lunge_test2));
     }
@@ -84,7 +84,7 @@ public class ExerciseList extends ActionBarActivity {
             TextView exerciseStatusText = (TextView) itemView.findViewById(R.id.exercise_itemStatus);
             exerciseStatusText.setText(currentExercise.getstatus());
             if (currentExercise.getstatus().equals("Available")){
-               exerciseStatusText.setTextColor(Color.parseColor("#2ACD20"));
+               exerciseStatusText.setTextColor(Color.parseColor("#0c7605"));
             }
             else{
                 exerciseStatusText.setTextColor(Color.RED);
@@ -98,7 +98,7 @@ public class ExerciseList extends ActionBarActivity {
 
     /* Determine which exercise was clicked and then can do anyting with that object */
     private void registerClickCallback() {
-        ListView list = (ListView) findViewById(R.id.exerciseListView);
+        list = (ListView) findViewById(R.id.exerciseListView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {             //Sets a click listener on the list as a whole
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
@@ -108,13 +108,15 @@ public class ExerciseList extends ActionBarActivity {
                 if (clickedExercise.getstatus().equals("Available")){                   //If user selects an exercise that is currently available - load it up for them
                     String exerciseDetails = clickedExercise.getExcercise();            //Get exercise name
 
-                    if (exerciseDetails.equals("OptoJump")){                            //For optopJump, send it to the verticalSlider classs to test
-                        Intent i = new Intent(ExerciseList.this, VerticalSliderActivity.class);
+                    if (exerciseDetails.equals("Full Squat")){
+                        Intent i = new Intent(ExerciseList.this, InstructionActivity.class);
                         i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
                         startActivity(i);
                     }
+
                     else{                                                               //All other available selections go to the bluetooth setup class
-                        Intent i = new Intent(ExerciseList.this, DeviceListActivity.class);
+                        //Intent i = new Intent(ExerciseList.this, VerticalSliderActivity.class);
+                        Intent i = new Intent(ExerciseList.this, ResultsScreen.class);
                         i.putExtra("excerciseDetails", exerciseDetails);    //Putting the exercise name, available in the class the intent points to, see http://stackoverflow.com/questions/24436682/android-why-use-intent-putextra-method
                         startActivity(i);
                     }
@@ -143,10 +145,27 @@ public class ExerciseList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, NotificationActivity.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        list.setOnItemClickListener(null);
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        if(list != null){
+            registerClickCallback();
+        }
     }
 
 }

@@ -21,12 +21,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@drawable/wallpaperoptionlighter">
+
     <TextView android:id="@+id/title_paired_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Select btSerial device from paired devices:"
+        android:text="@string/BTdevMsg"
+        android:textAlignment="center"
         android:visibility="gone"
         android:background="#666"
         android:textColor="#fff"
@@ -50,7 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="If no devices are listed please pair your device in Android settings"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+        android:textAlignment="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
