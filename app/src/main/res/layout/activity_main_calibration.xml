@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    tools:context="com.eoinclancy.bluetoothrxtx.MainActivity"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:background="@drawable/wallpaperoption"
+    android:weightSum="1">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:layout_gravity="top|center_horizontal"
+        android:gravity="top|center_horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:id="@+id/TopView">
+
+
+        <TextView
+            android:text="@string/joint_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/JointAngleText"
+            android:textSize="30sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_width="180dp"
+            android:layout_height="174dp"
+            app:cpb_background_progressbar_color="#ffc6cc"
+            app:cpb_background_progressbar_width="6dp"
+            app:cpb_progressbar_color="#F44336"
+            app:cpb_progressbar_width="10dp"
+            android:id="@+id/circularPbar"
+            android:layout_below="@+id/JointAngleText"
+            android:layout_centerHorizontal="true" />
+
+
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jointAngle"
+            android:textSize="40sp"
+            android:layout_alignBottom="@+id/circularPbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="61dp" />
+
+
+
+        <TextView
+            android:text="@string/curr_calibrating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:background="@drawable/textviewoutline"
+            android:id="@+id/CurrentlyCalibrating"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/circularPbar"
+            android:layout_alignLeft="@+id/muscleNameTextBox"
+            android:layout_alignStart="@+id/muscleNameTextBox" />
+
+        <TextView
+            android:text="@string/start_muscle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:background="@drawable/textviewoutline"
+            android:id="@+id/muscleNameTextBox"
+            android:textAlignment="center"
+            android:layout_marginTop="13dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/CurrentlyCalibrating"
+            android:layout_toRightOf="@+id/currentBest"
+            android:layout_toEndOf="@+id/currentBest" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingTop="30dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="0.95">
+
+
+        <ProgressBar
+            android:id="@+id/vert_progress_bar1"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="160dp"
+            android:layout_height="500dp"
+            android:max="100"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/vmoL"
+            android:layout_alignEnd="@+id/vmoL" />
+
+        <TextView
+            android:id="@+id/mvcMarkerTop"
+            android:layout_alignLeft="@id/vert_progress_bar1" android:layout_alignTop="@id/vert_progress_bar1"
+            android:layout_alignRight="@id/vert_progress_bar1" android:layout_alignBottom="@id/vert_progress_bar1"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:textSize="40sp"
+            android:text="@string/mvc_band_marker"/>
+
+        <TextView
+            android:id="@+id/mvcMarkerBottom"
+            android:layout_alignLeft="@id/vert_progress_bar1" android:layout_alignTop="@id/vert_progress_bar1"
+            android:layout_alignRight="@id/vert_progress_bar1" android:layout_alignBottom="@id/vert_progress_bar1"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="223dp"
+            android:textSize="40sp"
+            android:text="@string/mvc_band_marker"/>
+
+
+
+        <Button
+            android:text="@string/vmoR"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:id="@+id/VMORbutton"
+            android:layout_alignParentRight="true"
+            android:height="100dp"
+            android:width="150dp"
+            android:background="#EEEEEE"
+            />
+
+        <Button
+            android:text="@string/calfR"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:id="@+id/CalfRbutton"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/VMORbutton"
+            android:height="100dp"
+            android:width="150dp"
+            android:background="#EEEEEE"
+            />
+
+        <Button
+            android:text="@string/vmoL"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/VMOLbutton"
+            android:height="100dp"
+            android:width="150dp"
+            android:background="#EEEEEE"
+            android:layout_alignBaseline="@+id/VMORbutton"
+            android:layout_alignBottom="@+id/VMORbutton"
+            android:layout_toLeftOf="@+id/VMORbutton"
+            android:layout_toStartOf="@+id/VMORbutton"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:text="@string/calfL"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CalfLbutton"
+            android:height="100dp"
+            android:width="150dp"
+            android:background="#EEEEEE"
+            android:layout_alignBaseline="@+id/CalfRbutton"
+            android:layout_alignBottom="@+id/CalfRbutton"
+            android:layout_alignLeft="@+id/VMOLbutton"
+            android:layout_alignStart="@+id/VMOLbutton" />
+
+        <Button
+            android:text="Calibration Complete!"
+            android:textSize="27sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/calibrationCompleteButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:height="100dp"
+            android:width="250dp"
+            android:background="@drawable/button_capsule"
+            android:onClick="onButtonClick"/>
+
+        <TextView
+            android:text="@string/mvc_band"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/mvcBand"
+            android:textSize="25sp"
+            android:rotation="-90"
+            android:background="@android:color/transparent"
+            android:layout_above="@+id/CalfLbutton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="200dp"
+            android:src="@drawable/arrow"
+            android:id="@+id/mvcArrow"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignTop="@+id/mvcMarkerTop"
+            android:layout_toLeftOf="@+id/mvcMarkerTop" />
+
+        <TextView
+            android:text="@string/mvc_thresh"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="65dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:id="@+id/mvcThreshold"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/mvcBand"
+            android:layout_marginLeft="0dp" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
