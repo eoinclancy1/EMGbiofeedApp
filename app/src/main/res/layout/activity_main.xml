@@ -33,7 +33,7 @@
             android:layout_alignParentStart="true"
             android:id="@+id/currentBest"
             android:layout_alignParentTop="true"
-            android:textSize="20sp"/>
+            android:textSize="24sp"/>
 
         <TextView
             android:text="@string/high_score"
@@ -43,7 +43,7 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/highscore"
             android:layout_alignParentTop="true"
-            android:textSize="20sp"/>
+            android:textSize="24sp"/>
 
         <TextView
             android:text="@string/joint_angle"
@@ -57,8 +57,8 @@
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
             android:layout_width="180dp"
             android:layout_height="174dp"
-            app:cpb_background_progressbar_color="#FFCDD2"
-            app:cpb_background_progressbar_width="5dp"
+            app:cpb_background_progressbar_color="#ffc6cc"
+            app:cpb_background_progressbar_width="6dp"
             app:cpb_progressbar_color="#F44336"
             app:cpb_progressbar_width="10dp"
             android:id="@+id/circularPbar"
@@ -75,7 +75,8 @@
             android:textSize="40sp"
             android:background="@drawable/textviewoutline"
             android:layout_centerHorizontal="true"
-            android:id="@+id/NumSquats" />
+            android:id="@+id/NumSquats"
+            android:textAlignment="center" />
 
         <TextView
             android:text="TextView"

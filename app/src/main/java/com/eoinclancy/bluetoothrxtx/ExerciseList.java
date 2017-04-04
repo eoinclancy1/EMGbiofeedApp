@@ -40,7 +40,7 @@ public class ExerciseList extends ActionBarActivity {
     /* Used to add items to the list */
     private void populateExerciseList() {
         myExcercises.add(new Exercise("Full Squat", "Available", R.drawable.squat));
-        myExcercises.add(new Exercise("Single Squat", "Available", R.drawable.single_squat));
+        myExcercises.add(new Exercise("Single Squat", "Coming Soon!", R.drawable.single_squat));
         myExcercises.add(new Exercise("OptoJump","Coming Soon!",R.drawable.optojump));
         myExcercises.add(new Exercise("Y-Balance Func. Test", "Coming Soon!",R.drawable.ybalance));
         myExcercises.add(new Exercise("Arm Extension", "Coming Soon!", R.drawable.bicep_curl));

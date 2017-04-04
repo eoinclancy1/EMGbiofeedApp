@@ -104,7 +104,7 @@ public class DeviceListActivity extends AppCompatActivity {
             }
 
             // Make an intent to start next activity while taking an extra which is the MAC address.
-            Intent i = new Intent(DeviceListActivity.this, MainActivity.class);
+            Intent i = new Intent(DeviceListActivity.this, CalibrationMainActivity.class);
             i.putExtra(EXTRA_DEVICE_ADDRESS, address);
             i.putExtra("setupDetails", setupValues);
             startActivity(i);

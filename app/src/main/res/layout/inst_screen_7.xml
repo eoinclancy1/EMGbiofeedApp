@@ -86,7 +86,8 @@
             android:layout_height="414dp"
             android:src="@drawable/inst_cleanskin"
             android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"/>
 
 
     </LinearLayout>

@@ -14,6 +14,13 @@
     <string name="calfL">Calf Left</string>
     <string name="calfR">Calf Right</string>
 
+    <!-- For CalibrationMainActivity -->
+    <string name="curr_calibrating">Currently Calibrating....</string>
+    <string name="start_muscle">VMO Left</string>
+    <string name="mvc_band_marker"><b>---------</b></string>
+    <string name="mvc_band"><b>MVC Band</b></string>
+    <string name="mvc_thresh"><b>MVC Threshold</b></string>
+
     <string name="notificationInfo">Enable notifications to provide alert after 24 hours of inactivity?</string>
     <string name="enable">Enable Notifications</string>
     <string name="disable">Disable Notifications</string>
@@ -78,7 +85,8 @@
     <string name="setup1">Equipment Setup - Step 1 </string>
     <string name="cableSetup">Sensor Pack Cable Setup</string>
     <string name="accSetup">\u2022 Ensure the knee strap cables are connected as follows: </string>
-    <string name="emgSetup">\u2022 Ensure the EMG coloured cables are connected as follows: </string>
+    <string name="emgSetup">\u2022 Ensure the EMG cables are connected as follows: </string>
+    <string name="emgBoardSetup">\u2022 Attach the cable to the Myoware board as follows: </string>
 
     <string name="setup2">Equipment Setup - Step 2 </string>
     <string name="setup3">Equipment Setup - Step 3 </string>
@@ -97,9 +105,10 @@
 
     <string name="emgExpl">Electrode Placement</string>
     <string name="emgExpl1">For accurate muscle activity detection, the electrodes must be placed as described in the next two slides</string>
-    <string name="emgExpl2"><u><b>Note:</b></u> The black wire should be placed on a separate section of the body, such as a bony location or non-adjacent muscle </string>
-    <string name="emgExpl3"><u><b>Note:</b></u> The red wire should be placed in the middle of the muscle body </string>
-    <string name="emgExpl4"><u><b>Note:</b></u> The blue wire should be placed towards the end of the muscle body </string>
+    <string name="emgExpl2"><u><b>Note:</b></u> The reference electrode should be placed on a separate section of the body, such as a bony location or non-adjacent muscle </string>
+    <string name="emgExpl3"><u><b>Note:</b></u> The mid-muscle electrode should be placed in the middle of the muscle body </string>
+    <string name="emgExpl4"><u><b>Note:</b></u> The end-muscle electrode wire should be placed towards the end of the muscle body </string>
+    <string name="emgExp15"><b>Note: </b>The myoware device must be placed as shown.</string>
 
     <string name="setup4">Equipment Setup - Step 4 </string>
     <string name="emgPlacement">EMG Electrode Placement</string>

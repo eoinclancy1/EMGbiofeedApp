@@ -47,9 +47,16 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:src="@drawable/inst_accexample"
+            android:src="@drawable/acc_cable"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal" />
+
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:src="@drawable/acc_port"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="match_parent"
@@ -64,11 +71,37 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:src="@drawable/inst_stereoconnexample"
+            android:layout_height="300dp"
+            android:src="@drawable/emg_cable"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
             android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:src="@drawable/emg_port"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="left"
+            android:text="@string/emgBoardSetup"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:textSize="27dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:src="@drawable/myoware_conn"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal" />
+
 
 
     </LinearLayout>
